@@ -2,18 +2,18 @@
 2016-10-08〜09に熊本市で開催された「Race for Resilience 2016 熊本」のチームひなんじょが作成したソフトウェアです。ローカル側で動作させるプログラムを格納しています。
 
 #Links
-イベントページ, http://connpass.com/event/40111/
-本チームのサービス公開ページ, https://halsk.github.io/sheltercare/
+  イベントページ, http://connpass.com/event/40111/
+  本チームのサービス公開ページ, https://halsk.github.io/sheltercare/
 
 #動作環境
-*OS: Windows 10, Mac 10.11.6
-*other: Python3, OpenCV3, Arduino FTDI driver（Mac, Win10なら問題ないはず）
+  *OS: Windows 10, Mac 10.11.6
+  *other: Python3, OpenCV3, Arduino FTDI driver（Mac, Win10なら問題ないはず）
 
 #プログラムの説明
 ##Pythonのスクリプト　capture_final.py
-　このスクリプトは、カメラ画像から年齢と性別を推定し、DBサーバに通報するプログラムです。シリアルでArduinoからセンサーの値を受信しつつ、その値をトリガーとしてWebカメラから静止画を取得し、静止画をMicrosoftのComputer Vision APIに送信して性別と年齢の推定値を取得し、DBサーバーに性別と年齢の情報を送信します。ちなみに、送られたデータは性別ごとに統計が取られ、Webサーバ上でグラフ化されます（https://halsk.github.io/sheltercare/）。なお、画像をキャプチャするためのトリガーを画像から判断する場合はシリアル通信関係を利用しなくてOKです。
+このスクリプトは、カメラ画像から年齢と性別を推定し、DBサーバに通報するプログラムです。シリアルでArduinoからセンサーの値を受信しつつ、その値をトリガーとしてWebカメラから静止画を取得し、静止画をMicrosoftのComputer Vision APIに送信して性別と年齢の推定値を取得し、DBサーバーに性別と年齢の情報を送信します。ちなみに、送られたデータは性別ごとに統計が取られ、Webサーバ上でグラフ化されます（https://halsk.github.io/sheltercare/）。なお、画像をキャプチャするためのトリガーを画像から判断する場合はシリアル通信関係を利用しなくてOKです。
 ##Arduinoのプログラム
-　オムロンのSensorShield-EVK-001というシールドに照度センサを取り付けた上で、照度の時間変化率を求めています。求めた結果はシリアル（有線通信）でPC側に送られます。capture_final.pyでは受信した変化率をカメラ画像の保存のトリガーにしています。なお、オムロンが配布しているライブラリはArduino IDE 1.7.10ではビルドできなかったので少々改造しました。
+オムロンのSensorShield-EVK-001というシールドに照度センサを取り付けた上で、照度の時間変化率を求めています。求めた結果はシリアル（有線通信）でPC側に送られます。capture_final.pyでは受信した変化率をカメラ画像の保存のトリガーにしています。なお、オムロンが配布しているライブラリはArduino IDE 1.7.10ではビルドできなかったので少々改造しました。
 
 #実行環境の構築
 ##PythonのセットアップとOpenCVのインストール
